@@ -6,11 +6,9 @@ public class PauseMenu : MonoBehaviour
 {
     // Configs
     [SerializeField] GameObject pauseMenuUI = null;
-    [SerializeField] float pauseTimeScale = 0.0f;
 
     // State
     private static bool gameIsPaused = false;
-    private static float timeScaleBeforePause = 1.0f;
 
     // Update is called once per frame
     void Update()
@@ -28,30 +26,47 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    /** Indicates if game is paused. */
-    public static bool isPaused()
-    {
-        return gameIsPaused;
-    }
-
     /** Pauses game by setting time scale back to one. */
-    private void Resume()
+    public void Resume()
     {
         gameIsPaused = false;
 
-        Time.timeScale = timeScaleBeforePause;
+        Time.timeScale = 1f;
+
 
         pauseMenuUI.SetActive(gameIsPaused);
     }
 
     /** Pauses game by setting time to zero. */
-    private void Pause()
+    public void Pause()
     {
         gameIsPaused = true;
-        timeScaleBeforePause = Time.timeScale;
 
-        Time.timeScale = pauseTimeScale;
+        Time.timeScale = 0f;
 
         pauseMenuUI.SetActive(gameIsPaused);
+    }
+
+    /** Loads main menu. */
+    public void LoadMainMenu()
+    {
+        if (gameIsPaused)
+        {
+            Resume();
+        }
+
+        Debug.Log("TODO: Load Main Menu!");
+    }
+
+    /** Quits game. */
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    /** Indicates if game is paused. */
+    public static bool isPaused()
+    {
+        return gameIsPaused;
     }
 }
