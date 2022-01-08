@@ -21,6 +21,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.isPaused())
+        {
+            return;
+        }
+
         // TODO: remove this test code
         if (Input.GetKeyDown(KeyCode.Q))
         {
