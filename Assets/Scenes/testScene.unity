@@ -587,30 +587,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1525427241, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525427243, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_text
-      value: <color=#137E02>Lorem ipsum dolor sit amet, consectetur <color="red">a<color="black">dipiscing
-        elit.
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525427243, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0.0069419593
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525427243, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.49056602
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525427243, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.072563104
-      objectReference: {fileID: 0}
-    - target: {fileID: 1525427243, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278353171
+    - target: {fileID: 413524093, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.9999695
       objectReference: {fileID: 0}
     - target: {fileID: 1661343896, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
       propertyPath: m_AnchorMax.x
@@ -619,18 +598,6 @@ PrefabInstance:
     - target: {fileID: 1661343896, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2112891455575005039, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_fontColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2112891455575005039, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
-      objectReference: {fileID: 0}
-    - target: {fileID: 3883525531936659594, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4112518335755234334, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
       propertyPath: m_AnchorMax.x
@@ -731,10 +698,6 @@ PrefabInstance:
     - target: {fileID: 4112518336137534156, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
       propertyPath: m_Name
       value: UICanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319972116267918187, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5475121128046426760, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
       propertyPath: m_AnchorMax.x
