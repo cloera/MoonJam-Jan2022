@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 1525427243}
   m_Layer: 5
   m_Name: TypedTextPrompt
-  m_TagString: Untagged
+  m_TagString: TypedTextPrompt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
