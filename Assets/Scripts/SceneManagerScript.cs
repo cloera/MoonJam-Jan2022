@@ -22,6 +22,11 @@ public class SceneManagerScript : MonoBehaviour
         SceneManager.LoadScene(Scene.testScene.ToString());
     }
 
+    public static void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public static void LoadMainMenu()
     {
         SceneManager.LoadScene(Scene.MainMenu.ToString());
