@@ -7,15 +7,12 @@ public class PauseMenu : MonoBehaviour
     // Configs
     [SerializeField] GameObject pauseMenuUI = null;
 
-    // State
-    private static bool gameIsPaused = false;
-
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameIsPaused)
+            if (GameState.GetGameIsPaused())
             {
                 Resume();
             }
@@ -29,28 +26,23 @@ public class PauseMenu : MonoBehaviour
     /** Pauses game by setting time scale back to one. */
     public void Resume()
     {
-        gameIsPaused = false;
-
+        GameState.SetGameIsPaused(false);
         Time.timeScale = 1f;
-
-
-        pauseMenuUI.SetActive(gameIsPaused);
+        pauseMenuUI.SetActive(false);
     }
 
     /** Pauses game by setting time to zero. */
     public void Pause()
     {
-        gameIsPaused = true;
-
+        GameState.SetGameIsPaused(true);
         Time.timeScale = 0f;
-
-        pauseMenuUI.SetActive(gameIsPaused);
+        pauseMenuUI.SetActive(true);
     }
 
     /** Loads main menu. */
     public void LoadMainMenu()
     {
-        if (gameIsPaused)
+        if (GameState.GetGameIsPaused())
         {
             Resume();
         }
@@ -62,11 +54,5 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    /** Indicates if game is paused. */
-    public static bool isPaused()
-    {
-        return gameIsPaused;
     }
 }
