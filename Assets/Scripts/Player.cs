@@ -5,10 +5,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Configs
+    [Header("Player Info")]
     [SerializeField] int maxHealth = 100;
-    [SerializeField] HealthBar healthBarUI = null;
     [SerializeField] Typer typer = null;
     [SerializeField] Enemy enemy = null;
+    [SerializeField] int damageMultiplier = 1;
+
+
+    [Header("UI Stuff")]
+    [SerializeField] HealthBar healthBarUI = null;
 
     // Cache
     private TextGenerator textGenerator = null;
@@ -110,7 +115,7 @@ public class Player : MonoBehaviour
 
     private void AttackEnemy()
     {
-        int damageToDeal = typer.GetNumberOfCharactersTyped();
+        int damageToDeal = typer.GetNumberOfCharactersTyped() * damageMultiplier;
 
         enemy.TakeDamage(damageToDeal);
     }
