@@ -1,25 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     // Configs
     [SerializeField] int maxHealth = 100;
     [SerializeField] HealthBar healthBarUI = null;
-    [SerializeField] Typer typer = null;
+    [SerializeField] int minimumNumberOfWordsToGenerate = 0;
+    [SerializeField] int maximumNumberOfWordsToGenerate = 10;
+    [SerializeField] [Range(0, 100)] int percentageChanceOfStoryGeneration = 10;
 
     // Cache
     private TextGenerator textGenerator = null;
+    private Player player = null;
 
     // State
-    private int currentHealth = 0;
+    int currentHealth;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         healthBarUI.Initialize(maxHealth);
+        player = FindObjectOfType<Player>();
         textGenerator = FindObjectOfType<TextGenerator>();
     }
 
@@ -32,21 +37,29 @@ public class Player : MonoBehaviour
         }
 
         // TODO: remove this test code
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             TakeDamage(20);
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.W))
         {
             TakeHealing(20);
+        }
+
+        if (player.NeedsNextPrompt())
+        {
+            GenerateNextPrompt();
         }
 
         healthBarUI.SetHealth(currentHealth);
     }
 
-    public bool NeedsNextPrompt()
+    private void GenerateNextPrompt()
     {
-        return typer.IsFinished();
+        int randomNumberOfWordsToGenerate =
+            UnityEngine.Random.Range(minimumNumberOfWordsToGenerate, maximumNumberOfWordsToGenerate);
+
+        textGenerator.GenerateNextTextPrompt(percentageChanceOfStoryGeneration, randomNumberOfWordsToGenerate);
     }
 
     private void TakeDamage(int damage)
