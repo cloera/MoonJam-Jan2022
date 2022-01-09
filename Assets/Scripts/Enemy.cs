@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -7,6 +8,7 @@ public class Enemy : MonoBehaviour
     // Configs
     [SerializeField] int maxHealth = 100;
     [SerializeField] HealthBar healthBarUI = null;
+    [SerializeField] TextGenerator textGenerator = null;
 
     // State
     int currentHealth;
