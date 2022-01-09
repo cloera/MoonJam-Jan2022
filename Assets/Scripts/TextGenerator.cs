@@ -10,7 +10,6 @@ public class TextGenerator : MonoBehaviour
     // Configs
     [SerializeField] TextAsset markovSeedTextAsset = null;
     [TextArea(4, 12)] [SerializeField] List<string> storyTextAsset = null;
-    [SerializeField] TextMeshProUGUI displayOutput = null;
 
     // Cache
     private string lastGeneratedPrompt = "";
@@ -23,7 +22,6 @@ public class TextGenerator : MonoBehaviour
     void Start()
     {
         markovChainTextGenerator = new MarkovChainTextGenerator(markovSeedTextAsset);
-        displayOutput.text = lastGeneratedPrompt;
     }
 
     // Awake is called when the script instance is being loaded.
@@ -48,8 +46,6 @@ public class TextGenerator : MonoBehaviour
         {
             return;
         }
-
-        displayOutput.text = lastGeneratedPrompt;
     }
 
     public string GetLastGeneratedPrompt()
