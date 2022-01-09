@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour
     // Cache
     private TextGenerator textGenerator = null;
     private Player player = null;
-    private int numberOfPlayerMessupsSoFar = 0;
 
     // State
     int currentHealth;
@@ -69,6 +68,11 @@ public class Enemy : MonoBehaviour
             GenerateNextPrompt();
         }
 
+        if (player.ShouldGetAttackedForMessUp())
+        {
+            player.TakeDamage(quickAttackDamage);
+        }
+
         healthBarUI.SetHealth(currentHealth);
     }
 
@@ -104,29 +108,22 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log(string.Format("Quick Attack in: {0}", secondsUntilQuickAttack));
             Debug.Log(string.Format("Long Attack in: {0}", secondsUntilLongAttack));
 
             yield return new WaitForSeconds(generalPollInterval);
 
-            secondsUntilQuickAttack -= generalPollInterval;
             secondsUntilLongAttack -= generalPollInterval;
 
-            if (secondsUntilQuickAttack == 0)
-            {
-                if (player.ShouldGetAttackedForMessUp())
-                {
-                    player.TakeDamage(quickAttackDamage);
-                }
-
-                secondsUntilQuickAttack = quickAttackPollIntervalSeconds;
-            }
-
-            if (secondsUntilLongAttack == 0)
+            if (IsZero(secondsUntilLongAttack))
             {
                 player.TakeDamage(longAttackDamage);
                 secondsUntilLongAttack = longAttackPollIntervalSeconds;
             }
         }
+    }
+
+    private static bool IsZero(float f)
+    {
+        return Mathf.Abs(f) <= 0.00001;
     }
 }
