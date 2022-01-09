@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     // Configs
     [SerializeField] int maxHealth = 100;
     [SerializeField] HealthBar healthBarUI = null;
-    // [SerializeField] Typer typer = null;
+    [SerializeField] Typer typer = null;
 
     // Cache
     private TextGenerator textGenerator = null;
@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
 
     public bool NeedsNextPrompt()
     {
-        return Typer.IsFinished();
+        return typer.IsFinished();
     }
 
     private void TakeDamage(int damage)
