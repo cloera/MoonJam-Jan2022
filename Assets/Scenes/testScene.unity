@@ -321,6 +321,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4112518336021329306}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
+      propertyPath: generalPollInterval
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: quickAttackPollIntervalSeconds
       value: 1
       objectReference: {fileID: 0}
