@@ -26,11 +26,6 @@ public class Enemy : MonoBehaviour
         healthBarUI.Initialize(maxHealth);
         player = FindObjectOfType<Player>();
         textGenerator = FindObjectOfType<TextGenerator>();
-
-        int randomNumberOfWordsToGenerate =
-            UnityEngine.Random.Range(minimumNumberOfWordsToGenerate, maximumNumberOfWordsToGenerate);
-
-        textGenerator.GenerateNextTextPrompt(percentageChanceOfStoryGeneration, randomNumberOfWordsToGenerate);
     }
 
     // Update is called once per frame
@@ -51,7 +46,20 @@ public class Enemy : MonoBehaviour
             TakeHealing(20);
         }
 
+        if (player.NeedsNextPrompt())
+        {
+            GenerateNextPrompt();
+        }
+
         healthBarUI.SetHealth(currentHealth);
+    }
+
+    private void GenerateNextPrompt()
+    {
+        int randomNumberOfWordsToGenerate =
+            UnityEngine.Random.Range(minimumNumberOfWordsToGenerate, maximumNumberOfWordsToGenerate);
+
+        textGenerator.GenerateNextTextPrompt(percentageChanceOfStoryGeneration, randomNumberOfWordsToGenerate);
     }
 
     private void TakeDamage(int damage)

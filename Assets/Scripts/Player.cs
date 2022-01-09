@@ -7,12 +7,13 @@ public class Player : MonoBehaviour
     // Configs
     [SerializeField] int maxHealth = 100;
     [SerializeField] HealthBar healthBarUI = null;
+    // [SerializeField] Typer typer = null;
 
     // Cache
     private TextGenerator textGenerator = null;
 
     // State
-    int currentHealth;
+    private int currentHealth = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,11 @@ public class Player : MonoBehaviour
         }
 
         healthBarUI.SetHealth(currentHealth);
+    }
+
+    public bool NeedsNextPrompt()
+    {
+        return Typer.IsFinished();
     }
 
     private void TakeDamage(int damage)
