@@ -11,10 +11,11 @@ public class Typer : MonoBehaviour
     private TextGenerator textGenerator = null;
 
     // State
-    [SerializeField] private List<char> charsNeeded = new List<char>();
-    [SerializeField] private string typedSoFar = "";
-    [SerializeField] private string generatedPrompt = "";
-    [SerializeField] private bool messedUp = false;
+    private List<char> charsNeeded = new List<char>();
+    private string typedSoFar = "";
+    private string generatedPrompt = "";
+    private bool messedUp = false;
+
     private static readonly string GREEN_TEXT_PREFIX = "<color=#137E02>";
     private static readonly string RED_TEXT_PREFIX = "<color=red>";
     private static readonly string BLACK_TEXT_PREFIX = "<color=black>";
