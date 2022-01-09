@@ -100,23 +100,27 @@ public class Typer : MonoBehaviour
 
     private void OutputTypedSoFar()
     {
-        textOutput.text = GREEN_TEXT_PREFIX + typedSoFar;
+        string outputText = GREEN_TEXT_PREFIX + typedSoFar;
 
         if (messedUp)
         {
-            textOutput.text += RED_TEXT_PREFIX + charsNeeded[0];
+            char missedChar = charsNeeded[0] == ' ' ? '_' : charsNeeded[0];
+
+            outputText += RED_TEXT_PREFIX + missedChar;
         }
         else if (1 <= charsNeeded.Count)
         {
 
-            textOutput.text += BLACK_TEXT_PREFIX + charsNeeded[0];
+            outputText += BLACK_TEXT_PREFIX + charsNeeded[0];
         }
 
         if (2 <= charsNeeded.Count)
         {
             string restOfString = new string(charsNeeded.GetRange(1, charsNeeded.Count - 1).ToArray());
 
-            textOutput.text += BLACK_TEXT_PREFIX + restOfString;
+            outputText += BLACK_TEXT_PREFIX + restOfString;
         }
+
+        textOutput.text = outputText;
     }
 }
