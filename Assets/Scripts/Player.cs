@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     // State
     private int currentHealth = 0;
+    private int currentNumberOfMessups = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +22,10 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         healthBarUI.Initialize(maxHealth);
         textGenerator = FindObjectOfType<TextGenerator>();
+
         DontDestroyOnLoad(this.gameObject);
         StartCoroutine(DestroyObject());
+
         GameState.SetPlayerIsInitialized(true);
     }
 
@@ -46,8 +49,8 @@ public class Player : MonoBehaviour
 
         healthBarUI.SetHealth(currentHealth);
 
-        if (currentHealth <= 0 && 
-            GameState.GetHasGameStarted() && 
+        if (currentHealth <= 0 &&
+            GameState.GetHasGameStarted() &&
             !GameState.GetPlayerIsDead())
         {
             GameState.SetPlayerIsDead(true);
@@ -59,13 +62,22 @@ public class Player : MonoBehaviour
         return typer.IsFinished();
     }
 
+    public bool ShouldGetAttackedForMessUp()
+    {
+        bool result = currentNumberOfMessups != typer.GetNumberOfMessUps();
+
+        currentNumberOfMessups = typer.GetNumberOfMessUps();
+
+        return result;
+    }
+
     public void ResetStats()
     {
         currentHealth = maxHealth;
         healthBarUI.SetHealth(currentHealth);
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 

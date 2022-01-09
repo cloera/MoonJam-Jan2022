@@ -15,6 +15,7 @@ public class Typer : MonoBehaviour
     private string typedSoFar = "";
     private string generatedPrompt = "";
     private bool messedUp = false;
+    private int numberOfMessUps = 0;
 
     private static readonly string GREEN_TEXT_PREFIX = "<color=#137E02>";
     private static readonly string RED_TEXT_PREFIX = "<color=red>";
@@ -61,6 +62,16 @@ public class Typer : MonoBehaviour
         return typedSoFar == generatedPrompt;
     }
 
+    public bool MessedUp()
+    {
+        return messedUp;
+    }
+
+    public int GetNumberOfMessUps()
+    {
+        return numberOfMessUps;
+    }
+
     private void EnterLetter(char letter)
     {
         if (IsCorrectLetter(letter))
@@ -73,6 +84,7 @@ public class Typer : MonoBehaviour
         else
         {
             messedUp = true;
+            numberOfMessUps += 1;
         }
     }
 
@@ -88,23 +100,27 @@ public class Typer : MonoBehaviour
 
     private void OutputTypedSoFar()
     {
-        textOutput.text = GREEN_TEXT_PREFIX + typedSoFar;
+        string outputText = GREEN_TEXT_PREFIX + typedSoFar;
 
         if (messedUp)
         {
-            textOutput.text += RED_TEXT_PREFIX + charsNeeded[0];
+            char missedChar = charsNeeded[0] == ' ' ? '_' : charsNeeded[0];
+
+            outputText += RED_TEXT_PREFIX + missedChar;
         }
         else if (1 <= charsNeeded.Count)
         {
 
-            textOutput.text += BLACK_TEXT_PREFIX + charsNeeded[0];
+            outputText += BLACK_TEXT_PREFIX + charsNeeded[0];
         }
 
         if (2 <= charsNeeded.Count)
         {
             string restOfString = new string(charsNeeded.GetRange(1, charsNeeded.Count - 1).ToArray());
 
-            textOutput.text += BLACK_TEXT_PREFIX + restOfString;
+            outputText += BLACK_TEXT_PREFIX + restOfString;
         }
+
+        textOutput.text = outputText;
     }
 }

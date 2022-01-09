@@ -10,6 +10,9 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Slider slider = null;
     [SerializeField] TextMeshProUGUI currentHealthText = null;
 
+    // State
+    private bool useString = true;
+
     /** Initializes HealthBar UI to be at the given max health. */
     public void Initialize(int maxHealth)
     {
@@ -26,13 +29,28 @@ public class HealthBar : MonoBehaviour
     }
 
     /** Set the current health of the HealthBar UI. */
+    public void SetHealth(float health)
+    {
+        slider.value = health;
+        SetHealthString();
+    }
+
+    /** Set the current health of the HealthBar UI. */
     public void SetMaxHealth(int maxHealth)
     {
         slider.maxValue = maxHealth;
     }
 
+    public void UseHealthString(bool useHealthString)
+    {
+        useString = useHealthString;
+    }
+
     private void SetHealthString()
     {
-        currentHealthText.text = string.Format("HP: {0}/{1}", slider.value, slider.maxValue);
+        if (useString)
+        {
+            currentHealthText.text = string.Format("HP: {0}/{1}", slider.value, slider.maxValue);
+        }
     }
 }
