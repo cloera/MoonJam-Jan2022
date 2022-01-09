@@ -40,12 +40,6 @@ public class Player : MonoBehaviour
         {
             TakeHealing(20);
         }
-        else if (Input.GetKeyDown(KeyCode.G))
-        {
-            string generatedResponse = textGenerator.GenerateNextTextPrompt(40, 15);
-
-            Debug.Log(string.Format("Last Generated: {0}", textGenerator.GetLastGeneratedPrompt()));
-        }
 
         healthBarUI.SetHealth(currentHealth);
     }
