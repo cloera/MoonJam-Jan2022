@@ -22,8 +22,10 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         healthBarUI.Initialize(maxHealth);
         textGenerator = FindObjectOfType<TextGenerator>();
+
         DontDestroyOnLoad(this.gameObject);
         StartCoroutine(DestroyObject());
+
         GameState.SetPlayerIsInitialized(true);
     }
 
