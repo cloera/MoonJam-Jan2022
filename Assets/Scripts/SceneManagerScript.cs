@@ -7,6 +7,7 @@ public class SceneManagerScript : MonoBehaviour
 {
     public enum Scene
     {
+        MainMenu,
         testScene,
     }
 
@@ -17,8 +18,13 @@ public class SceneManagerScript : MonoBehaviour
 
     public void StartGame()
     {
-        GameState.hasGameStarted = true;
+        GameState.SetHasGameStarted(true);
         SceneManager.LoadScene(Scene.testScene.ToString());
+    }
+
+    public static void LoadMainMenu()
+    {
+        SceneManager.LoadScene(Scene.MainMenu.ToString());
     }
 
     public static void LoadScene(Scene scene)

@@ -22,12 +22,17 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         healthBarUI.Initialize(maxHealth);
         textGenerator = FindObjectOfType<TextGenerator>();
+
+        DontDestroyOnLoad(this.gameObject);
+        StartCoroutine(DestroyObject());
+
+        GameState.SetPlayerIsInitialized(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PauseMenu.isPaused())
+        if (GameState.GetGameIsPaused())
         {
             return;
         }
@@ -43,6 +48,13 @@ public class Player : MonoBehaviour
         }
 
         healthBarUI.SetHealth(currentHealth);
+
+        if (currentHealth <= 0 &&
+            GameState.GetHasGameStarted() &&
+            !GameState.GetPlayerIsDead())
+        {
+            GameState.SetPlayerIsDead(true);
+        }
     }
 
     public bool NeedsNextPrompt()
@@ -57,6 +69,12 @@ public class Player : MonoBehaviour
         currentNumberOfMessups = typer.GetNumberOfMessUps();
 
         return result;
+    }
+
+    public void ResetStats()
+    {
+        currentHealth = maxHealth;
+        healthBarUI.SetHealth(currentHealth);
     }
 
     public void TakeDamage(int damage)
@@ -77,5 +95,12 @@ public class Player : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+    }
+
+    private IEnumerator DestroyObject()
+    {
+        yield return new WaitUntil(() => !GameState.GetHasGameStarted());
+        GameState.SetPlayerIsInitialized(false);
+        Destroy(this.gameObject);
     }
 }
