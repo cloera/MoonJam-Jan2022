@@ -35,6 +35,11 @@ public class Typer : MonoBehaviour
             return;
         }
 
+        if (textOutput == null)
+        {
+            textOutput = GameObject.FindGameObjectWithTag("TypedTextPrompt").GetComponent<TextMeshProUGUI>();
+        }
+
         if (PromptHasChanged())
         {
             generatedPrompt = textGenerator.GetLastGeneratedPrompt();
