@@ -4,53 +4,58 @@ using UnityEngine;
 
 public class DeathScreen : MonoBehaviour
 {
-    // Configs
     [SerializeField] GameObject deathScreenUI = null;
+
+    private bool isDeathScreenEnabled = false;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Delete))
+        if (GameState.GetPlayerIsDead() && !isDeathScreenEnabled)
         {
-            Pause();
+            EnableDeathScreen();
         }
     }
 
     /** Continue game and reset enemy stats, player stats, and text prompt. */
     public void Continue()
     {
-        GameState.playerIsDead = false;
-
         // Reset player stats
-
+        GameManagerScript.ResetPlayer();
         // Reset enemy stats
 
         // Reset text prompt
 
-        Time.timeScale = 1f;
-
-        deathScreenUI.SetActive(GameState.playerIsDead);
+        DisableDeathScreen();
     }
 
     /** Quit to main menu */
-    public void Quit()
+    public void MainMenu()
     {
         LoadMainMenu();
-    }
-
-    /** Pauses game by setting time to zero. */
-    private void Pause()
-    {
-        GameState.playerIsDead = true;
-
-        Time.timeScale = 0f;
-
-        deathScreenUI.SetActive(GameState.playerIsDead);
     }
 
     /** Loads main menu. */
     private void LoadMainMenu()
     {
-        Debug.Log("TODO: Load Main Menu!");
+        GameState.SetHasGameStarted(false);
+        DisableDeathScreen();
+        SceneManagerScript.LoadScene(SceneManagerScript.Scene.MainMenu);
+    }
+
+    private void DisableDeathScreen()
+    {
+        GameState.SetPlayerIsDead(false);
+        isDeathScreenEnabled = false;
+        Time.timeScale = 1f;
+        deathScreenUI.SetActive(false);
+    }
+
+    private void EnableDeathScreen()
+    {
+        GameState.SetPlayerIsDead(true);
+        isDeathScreenEnabled = true;
+        Time.timeScale = 0f;
+        deathScreenUI.SetActive(true);
     }
 }
