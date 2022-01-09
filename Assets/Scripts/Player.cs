@@ -43,7 +43,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        healthBarUI.Initialize(maxHealth);
+
+        LoadEnemyAndUI();
+
         textGenerator = FindObjectOfType<TextGenerator>();
 
         GameState.SetPlayerIsInitialized(true);
@@ -55,6 +57,11 @@ public class Player : MonoBehaviour
         if (GameState.GetGameIsPaused())
         {
             return;
+        }
+
+        if ((healthBarUI == null) || (enemy == null))
+        {
+            LoadEnemyAndUI();
         }
 
         healthBarUI.SetHealth(currentHealth);
@@ -91,6 +98,15 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         healthBarUI.SetHealth(currentHealth);
         currentNumberOfMessups = 0;
+    }
+
+    public void LoadEnemyAndUI()
+    {
+        enemy = FindObjectOfType<Enemy>();
+        healthBarUI = GameObject.FindGameObjectWithTag("PlayerHPBarUI").GetComponent<HealthBar>();
+
+        healthBarUI.SetHealth(currentHealth);
+        healthBarUI.SetMaxHealth(maxHealth);
     }
 
     public void TakeDamage(int damage)
