@@ -25,6 +25,11 @@ public class SceneManagerScript : MonoBehaviour
     public static void LoadMainMenu()
     {
         SceneManager.LoadScene(Scene.MainMenu.ToString());
+
+        foreach (Player player in FindObjectsOfType<Player>())
+        {
+            Destroy(player.gameObject);
+        }
     }
 
     public static void LoadScene(Scene scene)

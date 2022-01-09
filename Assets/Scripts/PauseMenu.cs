@@ -47,7 +47,7 @@ public class PauseMenu : MonoBehaviour
             Resume();
         }
 
-        Debug.Log("TODO: Load Main Menu!");
+        SceneManagerScript.LoadMainMenu();
     }
 
     /** Quits game. */

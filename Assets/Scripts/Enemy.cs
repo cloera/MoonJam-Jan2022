@@ -74,6 +74,16 @@ public class Enemy : MonoBehaviour
         healthBarUI.SetHealth(currentHealth);
     }
 
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
+    }
+
     private void GenerateNextPrompt()
     {
         int randomNumberOfWordsToGenerate =
@@ -84,8 +94,6 @@ public class Enemy : MonoBehaviour
 
     private void HandleLongAttack()
     {
-        Debug.Log(string.Format("Long Attack in: {0}", secondsUntilLongAttack));
-
         secondsUntilLongAttack -= Time.deltaTime;
 
         attackBarUI.SetHealth(longAttackPollIntervalSeconds - secondsUntilLongAttack);
@@ -94,16 +102,6 @@ public class Enemy : MonoBehaviour
         {
             player.TakeDamage(longAttackDamage);
             secondsUntilLongAttack = longAttackPollIntervalSeconds;
-        }
-    }
-
-    private void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-
-        if (currentHealth < 0)
-        {
-            currentHealth = 0;
         }
     }
 

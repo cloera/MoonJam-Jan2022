@@ -72,6 +72,11 @@ public class Typer : MonoBehaviour
         return numberOfMessUps;
     }
 
+    public int GetNumberOfCharactersTyped()
+    {
+        return typedSoFar.Length;
+    }
+
     private void EnterLetter(char letter)
     {
         if (IsCorrectLetter(letter))
