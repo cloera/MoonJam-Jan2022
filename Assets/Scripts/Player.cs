@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         healthBarUI.Initialize(maxHealth);
         textGenerator = FindObjectOfType<TextGenerator>();
+        DontDestroyOnLoad(this.gameObject);
+        StartCoroutine(DestroyObject());
+        GameState.SetPlayerIsInitialized(true);
     }
 
     // Update is called once per frame
@@ -42,11 +45,24 @@ public class Player : MonoBehaviour
         }
 
         healthBarUI.SetHealth(currentHealth);
+
+        if (currentHealth <= 0 && 
+            GameState.GetHasGameStarted() && 
+            !GameState.GetPlayerIsDead())
+        {
+            GameState.SetPlayerIsDead(true);
+        }
     }
 
     public bool NeedsNextPrompt()
     {
         return typer.IsFinished();
+    }
+
+    public void ResetStats()
+    {
+        currentHealth = maxHealth;
+        healthBarUI.SetHealth(currentHealth);
     }
 
     private void TakeDamage(int damage)
@@ -67,5 +83,12 @@ public class Player : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+    }
+
+    private IEnumerator DestroyObject()
+    {
+        yield return new WaitUntil(() => !GameState.GetHasGameStarted());
+        GameState.SetPlayerIsInitialized(false);
+        Destroy(this.gameObject);
     }
 }
