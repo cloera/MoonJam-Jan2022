@@ -5,9 +5,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Configs
+    [Header("Player Info")]
     [SerializeField] int maxHealth = 100;
-    [SerializeField] HealthBar healthBarUI = null;
     [SerializeField] Typer typer = null;
+    [SerializeField] Enemy enemy = null;
+    [SerializeField] int damageMultiplier = 1;
+
+
+    [Header("UI Stuff")]
+    [SerializeField] HealthBar healthBarUI = null;
 
     // Cache
     private TextGenerator textGenerator = null;
@@ -16,15 +22,29 @@ public class Player : MonoBehaviour
     private int currentHealth = 0;
     private int currentNumberOfMessups = 0;
 
+    // Awake is called when the script instance is being loaded.
+    void Awake()
+    {
+        int numberOfInstances = FindObjectsOfType<Player>().Length;
+
+        if (numberOfInstances > 1)
+        {
+            gameObject.SetActive(false);
+
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         healthBarUI.Initialize(maxHealth);
         textGenerator = FindObjectOfType<TextGenerator>();
-
-        DontDestroyOnLoad(this.gameObject);
-        StartCoroutine(DestroyObject());
 
         GameState.SetPlayerIsInitialized(true);
     }
@@ -37,16 +57,6 @@ public class Player : MonoBehaviour
             return;
         }
 
-        // TODO: remove this test code
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            TakeDamage(20);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            TakeHealing(20);
-        }
-
         healthBarUI.SetHealth(currentHealth);
 
         if (currentHealth <= 0 &&
@@ -54,6 +64,11 @@ public class Player : MonoBehaviour
             !GameState.GetPlayerIsDead())
         {
             GameState.SetPlayerIsDead(true);
+        }
+
+        if (NeedsNextPrompt())
+        {
+            AttackEnemy();
         }
     }
 
@@ -75,6 +90,7 @@ public class Player : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBarUI.SetHealth(currentHealth);
+        currentNumberOfMessups = 0;
     }
 
     public void TakeDamage(int damage)
@@ -95,6 +111,13 @@ public class Player : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+    }
+
+    private void AttackEnemy()
+    {
+        int damageToDeal = typer.GetNumberOfCharactersTyped() * damageMultiplier;
+
+        enemy.TakeDamage(damageToDeal);
     }
 
     private IEnumerator DestroyObject()

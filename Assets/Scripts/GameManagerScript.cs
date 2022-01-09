@@ -9,7 +9,8 @@ public class GameManagerScript : MonoBehaviour
 
     public void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     void Update()
