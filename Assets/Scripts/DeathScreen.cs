@@ -40,7 +40,8 @@ public class DeathScreen : MonoBehaviour
     {
         GameState.SetHasGameStarted(false);
         DisableDeathScreen();
-        SceneManagerScript.LoadScene(SceneManagerScript.Scene.MainMenu);
+        SceneManagerScript.LoadMainMenu();
+        //SceneManagerScript.LoadScene(SceneManagerScript.Scene.MainMenu);
     }
 
     private void DisableDeathScreen()

@@ -317,6 +317,10 @@ PrefabInstance:
       value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
+      propertyPath: attackBarUI
+      value: 
+      objectReference: {fileID: 1692719440}
+    - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: healthBarUI
       value: 
       objectReference: {fileID: 4112518336021329306}
@@ -394,6 +398,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1692719440 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1752477514, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
+  m_PrefabInstance: {fileID: 4112518336021329305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21bdc2bb08c71b94799d412d0a663f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1794905232 stripped

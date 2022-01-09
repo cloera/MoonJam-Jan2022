@@ -13,7 +13,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     public void StartGame()
@@ -29,6 +29,8 @@ public class SceneManagerScript : MonoBehaviour
         foreach (Player player in FindObjectsOfType<Player>())
         {
             Destroy(player.gameObject);
+            GameState.SetPlayerIsInitialized(false);
+            GameState.SetPlayerIsDead(false);
         }
     }
 

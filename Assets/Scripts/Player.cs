@@ -20,9 +20,9 @@ public class Player : MonoBehaviour
     // Awake is called when the script instance is being loaded.
     void Awake()
     {
-        int numberOfGameStatusInstances = FindObjectsOfType<Player>().Length;
+        int numberOfInstances = FindObjectsOfType<Player>().Length;
 
-        if (numberOfGameStatusInstances > 1)
+        if (numberOfInstances > 1)
         {
             gameObject.SetActive(false);
 
