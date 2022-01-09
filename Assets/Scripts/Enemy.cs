@@ -8,7 +8,13 @@ public class Enemy : MonoBehaviour
     // Configs
     [SerializeField] int maxHealth = 100;
     [SerializeField] HealthBar healthBarUI = null;
-    [SerializeField] TextGenerator textGenerator = null;
+    [SerializeField] int minimumNumberOfWordsToGenerate = 0;
+    [SerializeField] int maximumNumberOfWordsToGenerate = 10;
+    [SerializeField] [Range(0, 100)] int percentageChanceOfStoryGeneration = 10;
+
+    // Cache
+    private TextGenerator textGenerator = null;
+    private Player player = null;
 
     // State
     int currentHealth;
@@ -18,6 +24,13 @@ public class Enemy : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBarUI.Initialize(maxHealth);
+        player = FindObjectOfType<Player>();
+        textGenerator = FindObjectOfType<TextGenerator>();
+
+        int randomNumberOfWordsToGenerate =
+            UnityEngine.Random.Range(minimumNumberOfWordsToGenerate, maximumNumberOfWordsToGenerate);
+
+        textGenerator.GenerateNextTextPrompt(percentageChanceOfStoryGeneration, randomNumberOfWordsToGenerate);
     }
 
     // Update is called once per frame

@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
     // Configs
     [SerializeField] int maxHealth = 100;
     [SerializeField] HealthBar healthBarUI = null;
-    [SerializeField] TextGenerator textGenerator = null;
+
+    // Cache
+    private TextGenerator textGenerator = null;
 
     // State
     int currentHealth;
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBarUI.Initialize(maxHealth);
+        textGenerator = FindObjectOfType<TextGenerator>();
     }
 
     // Update is called once per frame
