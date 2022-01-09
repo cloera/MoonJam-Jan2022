@@ -9,11 +9,8 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Info Stuff")]
     [SerializeField] int maxHealth = 100;
     [SerializeField] int quickAttackDamage = 1;
-    [SerializeField] int quickAttackPollIntervalSeconds = 1;
     [SerializeField] int longAttackDamage = 25;
     [SerializeField] int longAttackPollIntervalSeconds = 10;
-
-    [SerializeField] float generalPollInterval = 0.5f;
 
     [Header("Difficulty Stuff")]
     [SerializeField] int minimumNumberOfWordsToGenerate = 1;
@@ -22,6 +19,7 @@ public class Enemy : MonoBehaviour
 
     [Header("UI Stuff")]
     [SerializeField] HealthBar healthBarUI = null;
+    [SerializeField] HealthBar attackBarUI = null;
 
     // Cache
     private TextGenerator textGenerator = null;
@@ -29,7 +27,6 @@ public class Enemy : MonoBehaviour
 
     // State
     int currentHealth;
-    float secondsUntilQuickAttack;
     float secondsUntilLongAttack;
 
     // Start is called before the first frame update
@@ -37,12 +34,11 @@ public class Enemy : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBarUI.Initialize(maxHealth);
+        attackBarUI.SetMaxHealth(longAttackPollIntervalSeconds);
+        attackBarUI.UseHealthString(false);
         player = FindObjectOfType<Player>();
         textGenerator = FindObjectOfType<TextGenerator>();
-        secondsUntilQuickAttack = quickAttackPollIntervalSeconds;
         secondsUntilLongAttack = longAttackPollIntervalSeconds;
-
-        StartCoroutine(AttackCoroutine());
     }
 
     // Update is called once per frame
@@ -73,6 +69,8 @@ public class Enemy : MonoBehaviour
             player.TakeDamage(quickAttackDamage);
         }
 
+        HandleLongAttack();
+
         healthBarUI.SetHealth(currentHealth);
     }
 
@@ -82,6 +80,21 @@ public class Enemy : MonoBehaviour
             UnityEngine.Random.Range(minimumNumberOfWordsToGenerate, maximumNumberOfWordsToGenerate);
 
         textGenerator.GenerateNextTextPrompt(percentageChanceOfStoryGeneration, randomNumberOfWordsToGenerate);
+    }
+
+    private void HandleLongAttack()
+    {
+        Debug.Log(string.Format("Long Attack in: {0}", secondsUntilLongAttack));
+
+        secondsUntilLongAttack -= Time.deltaTime;
+
+        attackBarUI.SetHealth(longAttackPollIntervalSeconds - secondsUntilLongAttack);
+
+        if (secondsUntilLongAttack <= 0f)
+        {
+            player.TakeDamage(longAttackDamage);
+            secondsUntilLongAttack = longAttackPollIntervalSeconds;
+        }
     }
 
     private void TakeDamage(int damage)
@@ -102,28 +115,5 @@ public class Enemy : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
-    }
-
-    IEnumerator AttackCoroutine()
-    {
-        while (true)
-        {
-            Debug.Log(string.Format("Long Attack in: {0}", secondsUntilLongAttack));
-
-            yield return new WaitForSeconds(generalPollInterval);
-
-            secondsUntilLongAttack -= generalPollInterval;
-
-            if (IsZero(secondsUntilLongAttack))
-            {
-                player.TakeDamage(longAttackDamage);
-                secondsUntilLongAttack = longAttackPollIntervalSeconds;
-            }
-        }
-    }
-
-    private static bool IsZero(float f)
-    {
-        return Mathf.Abs(f) <= 0.00001;
     }
 }
