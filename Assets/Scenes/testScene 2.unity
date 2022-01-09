@@ -312,9 +312,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 386437612799889709, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3f304c5a9c0348641a088a4ee80fe497, type: 3}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: maxHealth
-      value: 400
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: attackBarUI
@@ -325,12 +329,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4112518336021329306}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
+      propertyPath: longAttackDamage
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
+      propertyPath: quickAttackDamage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: generalPollInterval
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
+      propertyPath: longAttackPollIntervalSeconds
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
+      propertyPath: maximumNumberOfWordsToGenerate
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
+      propertyPath: minimumNumberOfWordsToGenerate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: quickAttackPollIntervalSeconds
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
+      propertyPath: percentageChanceOfStoryGeneration
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8796203431536084357, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: m_RootOrder

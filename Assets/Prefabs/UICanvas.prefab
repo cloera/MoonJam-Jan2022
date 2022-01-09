@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 1752477514}
   m_Layer: 5
   m_Name: EnemyLongAttackBar
-  m_TagString: Untagged
+  m_TagString: EnemyAttackBarUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 2804432199738704039}
   m_Layer: 5
   m_Name: EnemyHealthBar
-  m_TagString: Untagged
+  m_TagString: EnemyHPBarUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1102,7 +1102,7 @@ GameObject:
   - component: {fileID: 4112518336647586057}
   m_Layer: 5
   m_Name: PlayerHealthBar
-  m_TagString: Untagged
+  m_TagString: PlayerHPBarUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

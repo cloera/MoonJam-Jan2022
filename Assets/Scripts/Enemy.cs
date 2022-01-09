@@ -69,6 +69,11 @@ public class Enemy : MonoBehaviour
             player.TakeDamage(quickAttackDamage);
         }
 
+        if (ShouldDie())
+        {
+            Die();
+        }
+
         HandleLongAttack();
 
         healthBarUI.SetHealth(currentHealth);
@@ -113,5 +118,16 @@ public class Enemy : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+    }
+
+    private bool ShouldDie()
+    {
+        return currentHealth <= 0;
+    }
+
+    // Just load next scene.
+    private void Die()
+    {
+        SceneManagerScript.LoadNextScene();
     }
 }

@@ -34,6 +34,21 @@ public class SceneManagerScript : MonoBehaviour
         }
     }
 
+    public static void LoadNextScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Last scene
+        if (currentSceneIndex == SceneManager.sceneCountInBuildSettings - 1)
+        {
+            Debug.Log("On Last Scene!");
+
+            return;
+        }
+
+        SceneManager.LoadScene(currentSceneIndex + 1);
+    }
+
     public static void LoadScene(Scene scene)
     {
         SceneManager.LoadScene(scene.ToString());
