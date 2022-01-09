@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PauseMenu.isPaused())
+        if (GameState.GetGameIsPaused())
         {
             return;
         }
