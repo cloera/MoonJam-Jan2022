@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     // State
     private int currentHealth = 0;
+    private int currentNumberOfMessups = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,16 @@ public class Player : MonoBehaviour
         return typer.IsFinished();
     }
 
-    private void TakeDamage(int damage)
+    public bool ShouldGetAttackedForMessUp()
+    {
+        bool result = currentNumberOfMessups != typer.GetNumberOfMessUps();
+
+        currentNumberOfMessups = typer.GetNumberOfMessUps();
+
+        return result;
+    }
+
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 

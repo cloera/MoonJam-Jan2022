@@ -6,18 +6,32 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // Configs
+    [Header("Enemy Info Stuff")]
     [SerializeField] int maxHealth = 100;
-    [SerializeField] HealthBar healthBarUI = null;
-    [SerializeField] int minimumNumberOfWordsToGenerate = 0;
+    [SerializeField] int quickAttackDamage = 1;
+    [SerializeField] int quickAttackPollIntervalSeconds = 1;
+    [SerializeField] int longAttackDamage = 25;
+    [SerializeField] int longAttackPollIntervalSeconds = 10;
+
+    [SerializeField] float generalPollInterval = 0.5f;
+
+    [Header("Difficulty Stuff")]
+    [SerializeField] int minimumNumberOfWordsToGenerate = 1;
     [SerializeField] int maximumNumberOfWordsToGenerate = 10;
     [SerializeField] [Range(0, 100)] int percentageChanceOfStoryGeneration = 10;
+
+    [Header("UI Stuff")]
+    [SerializeField] HealthBar healthBarUI = null;
 
     // Cache
     private TextGenerator textGenerator = null;
     private Player player = null;
+    private int numberOfPlayerMessupsSoFar = 0;
 
     // State
     int currentHealth;
+    float secondsUntilQuickAttack;
+    float secondsUntilLongAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +40,10 @@ public class Enemy : MonoBehaviour
         healthBarUI.Initialize(maxHealth);
         player = FindObjectOfType<Player>();
         textGenerator = FindObjectOfType<TextGenerator>();
+        secondsUntilQuickAttack = quickAttackPollIntervalSeconds;
+        secondsUntilLongAttack = longAttackPollIntervalSeconds;
+
+        StartCoroutine(AttackCoroutine());
     }
 
     // Update is called once per frame
@@ -79,6 +97,36 @@ public class Enemy : MonoBehaviour
         if (maxHealth < currentHealth)
         {
             currentHealth = maxHealth;
+        }
+    }
+
+    IEnumerator AttackCoroutine()
+    {
+        while (true)
+        {
+            Debug.Log(string.Format("Quick Attack in: {0}", secondsUntilQuickAttack));
+            Debug.Log(string.Format("Long Attack in: {0}", secondsUntilLongAttack));
+
+            yield return new WaitForSeconds(generalPollInterval);
+
+            secondsUntilQuickAttack -= generalPollInterval;
+            secondsUntilLongAttack -= generalPollInterval;
+
+            if (secondsUntilQuickAttack == 0)
+            {
+                if (player.ShouldGetAttackedForMessUp())
+                {
+                    player.TakeDamage(quickAttackDamage);
+                }
+
+                secondsUntilQuickAttack = quickAttackPollIntervalSeconds;
+            }
+
+            if (secondsUntilLongAttack == 0)
+            {
+                player.TakeDamage(longAttackDamage);
+                secondsUntilLongAttack = longAttackPollIntervalSeconds;
+            }
         }
     }
 }

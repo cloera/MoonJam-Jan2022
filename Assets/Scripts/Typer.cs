@@ -15,6 +15,7 @@ public class Typer : MonoBehaviour
     private string typedSoFar = "";
     private string generatedPrompt = "";
     private bool messedUp = false;
+    private int numberOfMessUps = 0;
 
     private static readonly string GREEN_TEXT_PREFIX = "<color=#137E02>";
     private static readonly string RED_TEXT_PREFIX = "<color=red>";
@@ -61,6 +62,16 @@ public class Typer : MonoBehaviour
         return typedSoFar == generatedPrompt;
     }
 
+    public bool MessedUp()
+    {
+        return messedUp;
+    }
+
+    public int GetNumberOfMessUps()
+    {
+        return numberOfMessUps;
+    }
+
     private void EnterLetter(char letter)
     {
         if (IsCorrectLetter(letter))
@@ -73,6 +84,7 @@ public class Typer : MonoBehaviour
         else
         {
             messedUp = true;
+            numberOfMessUps += 1;
         }
     }
 
