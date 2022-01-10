@@ -61,19 +61,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameState.GetGameIsPaused() || isDying)
+        if (GameState.GetGameIsPaused() || isDying || GameState.GetPlayerIsDead())
         {
             return;
-        }
-
-        // TODO: remove this test code
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            TakeDamage(20);
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            TakeHealing(20);
         }
 
         if (player.NeedsNextPrompt())

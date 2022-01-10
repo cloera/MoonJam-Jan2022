@@ -26,6 +26,11 @@ public class ScreenShakeController : MonoBehaviour
 
             startShaking = false;
         }
+
+        if (GameState.GetGameIsPaused() || GameState.GetPlayerIsDead())
+        {
+            shakeDurationRemaining = 0;
+        }
     }
 
     void LateUpdate()
