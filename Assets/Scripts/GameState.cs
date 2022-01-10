@@ -10,6 +10,7 @@ public static class GameState
     private static bool gameIsPaused = false;
     private static bool enemyIsDead = false;
     private static bool hasGameStarted = false;
+    private static bool hasBeatGame = false;
 
     public static void SetPlayerIsDead(bool state)
     {
@@ -64,5 +65,16 @@ public static class GameState
     public static bool GetHasGameStarted()
     {
         return hasGameStarted;
+    }
+
+    public static bool GetHasBeatGame()
+    {
+        return hasBeatGame;
+    }
+
+    public static void SetHasBeatGame(bool state)
+    {
+        hasBeatGame = state;
+        Debug.Log("hasBeatGame set to " + state);
     }
 }

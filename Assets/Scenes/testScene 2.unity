@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 3f304c5a9c0348641a088a4ee80fe497, type: 3}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: maxHealth
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: attackBarUI
@@ -218,7 +218,7 @@ PrefabInstance:
       objectReference: {fileID: 4112518336021329306}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: longAttackDamage
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: quickAttackDamage
@@ -230,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: longAttackPollIntervalSeconds
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: maximumNumberOfWordsToGenerate
@@ -246,7 +246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: percentageChanceOfStoryGeneration
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8796203431536084357, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: m_RootOrder
@@ -417,6 +417,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1935260843392893122, guid: cdce85d8e35c97d45b16b6d7b9c8590b, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1001783321}
     - target: {fileID: 1935260843392893127, guid: cdce85d8e35c97d45b16b6d7b9c8590b, type: 3}
       propertyPath: m_Name
       value: DeathScreenCanvas

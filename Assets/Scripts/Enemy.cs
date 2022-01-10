@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         player = FindObjectOfType<Player>();
         textGenerator = FindObjectOfType<TextGenerator>();
         audioSource = GetComponent<AudioSource>();
-        screenShakeController = FindObjectOfType<ScreenShakeController>();
+        screenShakeController = this.gameObject.AddComponent<ScreenShakeController>();
 
         secondsUntilLongAttack = longAttackPollIntervalSeconds;
     }
@@ -89,6 +89,13 @@ public class Enemy : MonoBehaviour
         }
 
         healthBarUI.SetHealth(currentHealth);
+    }
+
+    public void ResetStats()
+    {
+        currentHealth = maxHealth;
+        healthBarUI.SetHealth(currentHealth);
+        attackBarUI.SetHealth(secondsUntilLongAttack);
     }
 
     public void TakeDamage(int damage)
