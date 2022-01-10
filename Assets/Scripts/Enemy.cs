@@ -163,6 +163,6 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitWhile(() => audioSource.isPlaying);
 
-        SceneManagerScript.LoadNextScene();
+        SceneManagerScript.Instance.LoadNextScene();
     }
 }

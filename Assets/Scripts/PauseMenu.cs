@@ -47,12 +47,12 @@ public class PauseMenu : MonoBehaviour
             Resume();
         }
 
-        SceneManagerScript.LoadMainMenu();
+        SceneManagerScript.Instance.LoadMainMenu();
     }
 
     /** Quits game. */
     public void QuitGame()
     {
-        Application.Quit();
+        SceneManagerScript.QuitGame();
     }
 }

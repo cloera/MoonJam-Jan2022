@@ -11,27 +11,42 @@ public class SceneManagerScript : MonoBehaviour
         testScene,
     }
 
-    public void Awake()
+    // Instance
+    private static SceneManagerScript _instance = null;
+    public static SceneManagerScript Instance
     {
-        DontDestroyOnLoad(gameObject);
+        get
+        {
+            return _instance;
+        }
     }
+
+    private void Awake()
+    {
+        if (!_instance)
+        {
+            _instance = this;
+        }
+        DontDestroyOnLoad(_instance.gameObject);
+    }
+
 
     public void StartGame()
     {
         GameState.SetHasGameStarted(true);
         SceneManager.LoadScene(Scene.testScene.ToString());
+        Debug.Log("Game Loaded");
     }
 
-    public static void LoadMainMenu()
+    public static void QuitGame()
     {
-        SceneManager.LoadScene(Scene.MainMenu.ToString());
+        Application.Quit();
+    }
 
-        foreach (Player player in FindObjectsOfType<Player>())
-        {
-            Destroy(player.gameObject);
-            GameState.SetPlayerIsInitialized(false);
-            GameState.SetPlayerIsDead(false);
-        }
+    public void LoadMainMenu()
+    {
+        GameState.SetHasGameStarted(false);
+        SceneManager.LoadScene(Scene.MainMenu.ToString());
 
         foreach (BackgroundMusic backgroundMusic in FindObjectsOfType<BackgroundMusic>())
         {
@@ -39,10 +54,9 @@ public class SceneManagerScript : MonoBehaviour
         }
     }
 
-    public static void LoadNextScene()
+    public void LoadNextScene()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
@@ -53,6 +67,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public static void LoadScene(Scene scene)
     {
+        Debug.Log("Loading scene name: " + scene.ToString());
         SceneManager.LoadScene(scene.ToString());
     }
 }

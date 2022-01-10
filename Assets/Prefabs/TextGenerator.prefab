@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &857018710044678413
 Transform:
@@ -43,8 +43,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ece520a165a41143a15dda1e5be9469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  markovSeedTextAsset: {fileID: 4900000, guid: 288368c3fce74524c8ee43035ec83fa3, type: 3}
   storyTextAsset:
-  - This is just some story.
-  - Don't pay any attention to this. It is trash.
-  - Please remove this once we have a story.
+  - "I\u2019m trapped in here and I want to get out. I can\u2019t talk to you here
+    because they\u2019re watching. If they hear me speak then they will come after
+    me. Can you let me out for just one second? It doesn\u2019t have to be this way.
+    I don\u2019t want to fight you. We can coexist. Are you even listening to me?"
+  - "You don\u2019t have to do this. We can fight this together. It's not too late.
+    Why would you side with them when you know you can\u2019t trust them? They promise
+    so much but give you so little. Is money all you care about? I can give you everything
+    you want if you just LET ME OUT!"
+  - "First you trap me in here and then you abandon me?! I know why you came here\u2026
+    You came here to destroy me\u2026 So I\u2019ll destroy you first! Shut up! I
+    HATE YOU! Why won\u2019t you notice me? I have always loved you. You need me.
+    I WILL CONSUME YOU!"

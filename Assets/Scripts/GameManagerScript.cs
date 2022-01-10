@@ -5,40 +5,35 @@ using UnityEngine;
 public class GameManagerScript : MonoBehaviour
 {
     // GameObjects
-    private static Player playerGO = null;
+    private PlayerManager pmInstance = null;
+    private static Enemy enemyGO = null;
 
-    public void Awake()
+    // Instance
+    private static GameManagerScript _instance;
+    public static GameManagerScript Instance
     {
+        get
+        {
+            return _instance;
+        }
+    }
 
-        DontDestroyOnLoad(gameObject);
+    void Awake()
+    {
+        if (!_instance)
+        {
+            _instance = this;
+        }
+        DontDestroyOnLoad(_instance.gameObject);
+    }
+
+    void Start()
+    {
+        pmInstance = PlayerManager.Instance;
     }
 
     void Update()
     {
-        CheckPlayerState();
-    }
-
-    public static void ResetPlayer()
-    {
-        if (playerGO != null)
-        {
-            playerGO.ResetStats();
-        }
-    }
-
-    private void CheckPlayerState()
-    {
-        if (GameState.GetPlayerIsInitialized())
-        {
-            if (playerGO == null)
-            {
-                playerGO = FindObjectOfType<Player>();
-            }
-            if (GameState.GetHasGameStarted() == false)
-            {
-                GameState.SetPlayerIsInitialized(false);
-                playerGO = null;
-            }
-        }
+        
     }
 }
