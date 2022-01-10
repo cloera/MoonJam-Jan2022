@@ -542,6 +542,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1661343896, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661343896, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112518335755234334, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112518335755234334, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4112518336137534144, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -633,6 +649,14 @@ PrefabInstance:
     - target: {fileID: 4112518336137534156, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
       propertyPath: m_Name
       value: UICanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5475121128046426760, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5475121128046426760, guid: 22f38409a133509488e5115f76fae5eb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22f38409a133509488e5115f76fae5eb, type: 3}

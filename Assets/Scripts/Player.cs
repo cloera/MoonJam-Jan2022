@@ -60,14 +60,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameState.GetGameIsPaused())
-        {
-            return;
-        }
-
         if ((healthBarUI == null) || (enemy == null))
         {
             LoadEnemyAndUI();
+        }
+
+        if (GameState.GetGameIsPaused() || enemy.IsDying())
+        {
+            return;
         }
 
         healthBarUI.SetHealth(currentHealth);
@@ -139,6 +139,11 @@ public class Player : MonoBehaviour
 
     private void AttackEnemy()
     {
+        if (enemy.IsDying())
+        {
+            return;
+        }
+
         int damageToDeal = typer.GetNumberOfCharactersTyped() * damageMultiplier;
 
         enemy.TakeDamage(damageToDeal);

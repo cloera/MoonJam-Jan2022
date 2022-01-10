@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameState.GetGameIsPaused())
+        if (GameState.GetGameIsPaused() || isDying)
         {
             return;
         }
@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour
             GenerateNextPrompt();
         }
 
-        if (player.ShouldGetAttackedForMessUp())
+        if (player.ShouldGetAttackedForMessUp() && !isDying)
         {
             player.TakeDamage(quickAttackDamage);
             audioSource.PlayOneShot(quickAttackSound);
@@ -102,6 +102,11 @@ public class Enemy : MonoBehaviour
         {
             currentHealth = 0;
         }
+    }
+
+    public bool IsDying()
+    {
+        return isDying;
     }
 
     private void GenerateNextPrompt()

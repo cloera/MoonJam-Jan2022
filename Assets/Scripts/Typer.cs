@@ -9,6 +9,7 @@ public class Typer : MonoBehaviour
 
     // Cache
     private TextGenerator textGenerator = null;
+    private Enemy enemy = null;
 
     // State
     private List<char> charsNeeded = new List<char>();
@@ -25,12 +26,18 @@ public class Typer : MonoBehaviour
     void Start()
     {
         textGenerator = FindObjectOfType<TextGenerator>();
+        enemy = FindObjectOfType<Enemy>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameState.GetGameIsPaused())
+        if (enemy == null)
+        {
+            enemy = FindObjectOfType<Enemy>();
+        }
+
+        if (GameState.GetGameIsPaused() || enemy.IsDying())
         {
             return;
         }
