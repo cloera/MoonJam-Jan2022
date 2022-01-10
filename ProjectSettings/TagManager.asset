@@ -9,6 +9,8 @@ TagManager:
   - EnemyHPBarUI
   - EnemyAttackBarUI
   - TypedTextPrompt
+  - MainMenuTitle
+  - MainMenuStart
   layers:
   - Default
   - TransparentFX
