@@ -21,23 +21,34 @@ public class Enemy : MonoBehaviour
     [SerializeField] HealthBar healthBarUI = null;
     [SerializeField] HealthBar attackBarUI = null;
 
+    [Header("FX Stuff")]
+    [SerializeField] AudioClip deathSound = null;
+    [SerializeField] AudioClip quickAttackSound = null;
+    [SerializeField] AudioClip longAttackSound = null;
+
     // Cache
     private TextGenerator textGenerator = null;
     private Player player = null;
+    private AudioSource audioSource = null;
 
     // State
     int currentHealth;
     float secondsUntilLongAttack;
+    bool isDying = false;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
+
         healthBarUI.Initialize(maxHealth);
         attackBarUI.SetMaxHealth(longAttackPollIntervalSeconds);
         attackBarUI.UseHealthString(false);
+
         player = FindObjectOfType<Player>();
         textGenerator = FindObjectOfType<TextGenerator>();
+        audioSource = GetComponent<AudioSource>();
+
         secondsUntilLongAttack = longAttackPollIntervalSeconds;
     }
 
@@ -67,14 +78,18 @@ public class Enemy : MonoBehaviour
         if (player.ShouldGetAttackedForMessUp())
         {
             player.TakeDamage(quickAttackDamage);
+            audioSource.PlayOneShot(quickAttackSound);
         }
 
         if (ShouldDie())
         {
-            Die();
+            StartCoroutine(Die());
         }
 
-        HandleLongAttack();
+        if (!isDying)
+        {
+            HandleLongAttack();
+        }
 
         healthBarUI.SetHealth(currentHealth);
     }
@@ -105,6 +120,7 @@ public class Enemy : MonoBehaviour
 
         if (secondsUntilLongAttack <= 0f)
         {
+            audioSource.PlayOneShot(longAttackSound);
             player.TakeDamage(longAttackDamage);
             secondsUntilLongAttack = longAttackPollIntervalSeconds;
         }
@@ -122,12 +138,18 @@ public class Enemy : MonoBehaviour
 
     private bool ShouldDie()
     {
-        return currentHealth <= 0;
+        return currentHealth <= 0 && !isDying;
     }
 
     // Just load next scene.
-    private void Die()
+    private IEnumerator Die()
     {
+        isDying = true;
+
+        audioSource.PlayOneShot(deathSound);
+
+        yield return new WaitWhile(() => audioSource.isPlaying);
+
         SceneManagerScript.LoadNextScene();
     }
 }

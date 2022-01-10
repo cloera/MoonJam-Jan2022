@@ -15,12 +15,17 @@ public class Player : MonoBehaviour
     [Header("UI Stuff")]
     [SerializeField] HealthBar healthBarUI = null;
 
+    [Header("FX Stuff")]
+    [SerializeField] AudioClip attackSound = null;
+
     // Cache
     private TextGenerator textGenerator = null;
+    private AudioSource audioSource = null;
 
     // State
     private int currentHealth = 0;
     private int currentNumberOfMessups = 0;
+    private int numberOfPromptsDone = 0;
 
     // Awake is called when the script instance is being loaded.
     void Awake()
@@ -47,6 +52,7 @@ public class Player : MonoBehaviour
         LoadEnemyAndUI();
 
         textGenerator = FindObjectOfType<TextGenerator>();
+        audioSource = GetComponent<AudioSource>();
 
         GameState.SetPlayerIsInitialized(true);
     }
@@ -76,6 +82,8 @@ public class Player : MonoBehaviour
         if (NeedsNextPrompt())
         {
             AttackEnemy();
+
+            numberOfPromptsDone += 1;
         }
     }
 
@@ -134,6 +142,12 @@ public class Player : MonoBehaviour
         int damageToDeal = typer.GetNumberOfCharactersTyped() * damageMultiplier;
 
         enemy.TakeDamage(damageToDeal);
+
+        // Ignore first prompt done
+        if (2 <= numberOfPromptsDone)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
     }
 
     private IEnumerator DestroyObject()
