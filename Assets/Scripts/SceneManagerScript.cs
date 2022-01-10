@@ -20,6 +20,7 @@ public class SceneManagerScript : MonoBehaviour
     {
         GameState.SetHasGameStarted(true);
         SceneManager.LoadScene(Scene.testScene.ToString());
+        Debug.Log("Game Loaded");
     }
 
     public static void QuitGame()

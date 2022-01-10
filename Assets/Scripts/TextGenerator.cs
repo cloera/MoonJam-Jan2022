@@ -8,8 +8,8 @@ using UnityEngine;
 public class TextGenerator : MonoBehaviour
 {
     // Configs
-    [SerializeField] TextAsset markovSeedTextAsset = null;
     [TextArea(4, 12)] [SerializeField] List<string> storyTextAsset = null;
+    TextAsset markovSeedTextAsset = null;
 
     // Cache
     private string lastGeneratedPrompt = "";
@@ -17,12 +17,6 @@ public class TextGenerator : MonoBehaviour
     // State
     private static int currentStoryIndex = 0;
     private static MarkovChainTextGenerator markovChainTextGenerator = null;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        markovChainTextGenerator = new MarkovChainTextGenerator(markovSeedTextAsset);
-    }
 
     // Awake is called when the script instance is being loaded.
     void Awake()
@@ -37,6 +31,21 @@ public class TextGenerator : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+
+        if(markovChainTextGenerator == null)
+        {
+            markovSeedTextAsset = Resources.Load<TextAsset>("Text/TwitchChatText2");
+            markovChainTextGenerator = new MarkovChainTextGenerator();
+            Debug.Log("Initialized TextGenerator");
+
+            StartCoroutine(InitMarkovChain(markovSeedTextAsset));
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -81,6 +90,11 @@ public class TextGenerator : MonoBehaviour
         return lastGeneratedPrompt;
     }
 
+    IEnumerator InitMarkovChain(TextAsset textAssetSeed)
+    {
+        yield return new WaitUntil(() => markovChainTextGenerator.InitializeMarkovChain(textAssetSeed));
+    }
+
     private void ResetGenerator()
     {
         gameObject.SetActive(false);
@@ -91,16 +105,11 @@ public class TextGenerator : MonoBehaviour
 
 class MarkovChainTextGenerator
 {
+    private Dictionary<string, List<string>> markovChain;
     private static readonly int KEY_SIZE = 3;
-    private Dictionary<string, List<string>> markovChain = new Dictionary<string, List<string>>();
 
-    public MarkovChainTextGenerator(TextAsset textAssetSeed)
-    {
-        string seed = textAssetSeed.text;
-
-        List<string> seedWords = new List<string>(seed.Split());
-
-        markovChain = GetMarkovChain(seedWords);
+    public MarkovChainTextGenerator()
+    {       
     }
 
     public string GenerateRandomSentence(int numberOfWordsForOutput)
@@ -108,17 +117,35 @@ class MarkovChainTextGenerator
         return GetMarkovChainSentence(markovChain, numberOfWordsForOutput);
     }
 
+    public bool InitializeMarkovChain(TextAsset textAssetSeed)
+    {
+        bool result = false;
+        {
+            string seed = textAssetSeed.text;
+            List<string> seedWords = new List<string>(seed.Split());
+
+            markovChain = GetMarkovChain(seedWords);
+            result = true;
+            Debug.Log("Initialized MarkovChainTextGenerator");
+        }
+
+        return result;
+    }
+
     private static Dictionary<string, List<string>> GetMarkovChain(List<string> seedWords)
     {
         Dictionary<string, List<string>> markovChain = new Dictionary<string, List<string>>();
+        string key;
+        int followingWordIndex;
+        string followingWord;
 
         foreach (int seedWordIndex in Enumerable.Range(0, seedWords.Count - KEY_SIZE))
         {
-            string key = seedWords.Skip(seedWordIndex).Take(KEY_SIZE).Aggregate(Join);
+            key = seedWords.Skip(seedWordIndex).Take(KEY_SIZE).Aggregate(Join);
 
-            int followingWordIndex = seedWordIndex + KEY_SIZE;
+            followingWordIndex = seedWordIndex + KEY_SIZE;
 
-            string followingWord = followingWordIndex < seedWords.Count
+            followingWord = followingWordIndex < seedWords.Count
                 ? seedWords[followingWordIndex]
                 : "";
 

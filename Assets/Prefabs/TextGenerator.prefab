@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &857018710044678413
 Transform:
@@ -43,9 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ece520a165a41143a15dda1e5be9469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  markovSeedTextAsset: {fileID: 4900000, guid: 288368c3fce74524c8ee43035ec83fa3, type: 3}
   storyTextAsset:
   - This is just some story.
   - Don't pay any attention to this. It is trash.
   - Please remove this once we have a story.
-  lastGeneratedPrompt: 
