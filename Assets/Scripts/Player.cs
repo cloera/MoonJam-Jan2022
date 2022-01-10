@@ -11,10 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField] Enemy enemy = null;
     [SerializeField] int damageMultiplier = 1;
 
-
-    [Header("UI Stuff")]
-    [SerializeField] HealthBar healthBarUI = null;
-
     // Cache
     private TextGenerator textGenerator = null;
 
@@ -44,7 +40,7 @@ public class Player : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        LoadEnemyAndUI();
+        LoadEnemy();
 
         textGenerator = FindObjectOfType<TextGenerator>();
 
@@ -67,12 +63,10 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if ((healthBarUI == null) || (enemy == null))
+        if ((enemy == null))
         {
-            LoadEnemyAndUI();
+            LoadEnemy();
         }
-
-        healthBarUI.SetHealth(currentHealth);
 
         if (currentHealth <= 0 &&
             GameState.GetHasGameStarted() &&
@@ -101,20 +95,26 @@ public class Player : MonoBehaviour
         return result;
     }
 
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
     public void ResetStats()
     {
         currentHealth = maxHealth;
-        healthBarUI.SetHealth(currentHealth);
         currentNumberOfMessups = 0;
     }
 
-    public void LoadEnemyAndUI()
+    public void LoadEnemy()
     {
         enemy = FindObjectOfType<Enemy>();
-        healthBarUI = GameObject.FindGameObjectWithTag("PlayerHPBarUI").GetComponent<HealthBar>();
-
-        healthBarUI.SetHealth(currentHealth);
-        healthBarUI.SetMaxHealth(maxHealth);
+        
     }
 
     public void TakeDamage(int damage)

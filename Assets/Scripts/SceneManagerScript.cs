@@ -17,38 +17,19 @@ public class SceneManagerScript : MonoBehaviour
     {
         get
         {
-            if(_instance == null)
-            {
-                // Load prefab from file and instantiate it in scene
-                GameObject prefab = Resources.Load<GameObject>("Prefabs/SceneManager");
-                GameObject goInstance = Instantiate<GameObject>(prefab);
-                // Assign prefab component to this instance
-                _instance = goInstance.GetComponent<SceneManagerScript>();
-                // Add component if it does not exist
-                if(!_instance)
-                {
-                    _instance = goInstance.AddComponent<SceneManagerScript>();
-                }
-                DontDestroyOnLoad(_instance.gameObject);
-            }
             return _instance;
         }
     }
 
-    public void Awake()
+    private void Awake()
     {
-        //int numInstances = FindObjectsOfType<SceneManagerScript>().Length;
-
-        //if (numInstances > 1 || (_instance != this && _instance != null))
-        //{
-        //    ResetSMScript();
-        //}
-        //else
-        //{
-        //    _instance = this;
-        //    DontDestroyOnLoad(this.gameObject);
-        //}
+        if (!_instance)
+        {
+            _instance = this;
+        }
+        DontDestroyOnLoad(_instance.gameObject);
     }
+
 
     public void StartGame()
     {
@@ -64,10 +45,8 @@ public class SceneManagerScript : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        GameState.SetHasGameStarted(false);
         SceneManager.LoadScene(Scene.MainMenu.ToString());
-
-        // Destroy game objects
-        GameManagerScript.Instance.DestroyPlayerGO();
     }
 
     public void LoadNextScene()
