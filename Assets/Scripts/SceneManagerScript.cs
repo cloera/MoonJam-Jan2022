@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,9 @@ public class SceneManagerScript : MonoBehaviour
         MainMenu,
         testScene,
     }
+
+    private TextMeshProUGUI textTitle;
+    private GameObject startButtonGO;
 
     // Instance
     private static SceneManagerScript _instance = null;
@@ -30,6 +34,20 @@ public class SceneManagerScript : MonoBehaviour
         DontDestroyOnLoad(_instance.gameObject);
     }
 
+    private void Update()
+    {
+        if(GameState.GetHasBeatGame())
+        {
+            textTitle = GameObject.FindGameObjectWithTag("MainMenuTitle").GetComponent<TextMeshProUGUI>();
+            startButtonGO = GameObject.FindGameObjectWithTag("MainMenuStart");
+
+            textTitle.text = "Cult Of The Moon";
+            textTitle.color = Color.red;
+
+            startButtonGO.SetActive(false);
+        }
+    }
+
 
     public void StartGame()
     {
@@ -45,6 +63,18 @@ public class SceneManagerScript : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        GameState.SetHasGameStarted(false);
+        SceneManager.LoadScene(Scene.MainMenu.ToString());
+
+        foreach (BackgroundMusic backgroundMusic in FindObjectsOfType<BackgroundMusic>())
+        {
+            Destroy(backgroundMusic.gameObject);
+        }
+    }
+
+    public void LoadMainMenuAfterWinning()
+    {
+        GameState.SetHasBeatGame(true);
         GameState.SetHasGameStarted(false);
         SceneManager.LoadScene(Scene.MainMenu.ToString());
 

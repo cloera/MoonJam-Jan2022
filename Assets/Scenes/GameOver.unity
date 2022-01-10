@@ -408,7 +408,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1336462673187560479, guid: f3ae00775d2666c468eef3f1c92dbb95, type: 3}
         m_TargetAssemblyTypeName: SceneManagerScript, Assembly-CSharp
-        m_MethodName: LoadMainMenu
+        m_MethodName: LoadMainMenuAfterWinning
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -513,7 +513,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Main Menu
+  m_text: Continue?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2e52b0c5e4758a4183c0fe1d8f67733, type: 2}
   m_sharedMaterial: {fileID: -5358695395057868502, guid: d2e52b0c5e4758a4183c0fe1d8f67733, type: 2}
