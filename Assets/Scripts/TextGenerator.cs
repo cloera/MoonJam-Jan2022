@@ -38,7 +38,7 @@ public class TextGenerator : MonoBehaviour
     {
         if (markovChainTextGenerator == null)
         {
-            markovSeedTextAsset = Resources.Load<TextAsset>("Text/TwitchChatText");
+            markovSeedTextAsset = Resources.Load<TextAsset>("Text/TwitchChatText2");
             markovChainTextGenerator = new MarkovChainTextGenerator();
             Debug.Log("Initialized TextGenerator");
 

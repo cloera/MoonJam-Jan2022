@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeathScreen : MonoBehaviour
 {
     [SerializeField] GameObject deathScreenUI = null;
+    [SerializeField] Enemy enemy;
 
     private bool isDeathScreenEnabled = false;
 
@@ -23,9 +24,7 @@ public class DeathScreen : MonoBehaviour
         // Reset player stats
         PlayerManager.Instance.ResetPlayer();
         // Reset enemy stats
-
-        // Reset text prompt
-
+        enemy.ResetStats();
         DisableDeathScreen();
     }
 

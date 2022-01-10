@@ -110,12 +110,16 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         healthBarUI.SetHealth(currentHealth);
         currentNumberOfMessups = 0;
+        typer.ResetPrompt();
     }
 
     public void LoadEnemyAndUI()
     {
         enemy = FindObjectOfType<Enemy>();
-        healthBarUI = GameObject.FindGameObjectWithTag("PlayerHPBarUI").GetComponent<HealthBar>();
+        if (!GameState.GetHasBeatGame())
+        {
+            healthBarUI = GameObject.FindGameObjectWithTag("PlayerHPBarUI").GetComponent<HealthBar>();
+        }
 
         healthBarUI.SetHealth(currentHealth);
         healthBarUI.SetMaxHealth(maxHealth);

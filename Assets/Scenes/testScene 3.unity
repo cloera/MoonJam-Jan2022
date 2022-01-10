@@ -217,7 +217,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 53ecfcc83bd74a94897e034749719f54, type: 3}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: maxHealth
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: attackBarUI
@@ -233,7 +233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: quickAttackDamage
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: generalPollInterval
@@ -241,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: longAttackPollIntervalSeconds
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: maximumNumberOfWordsToGenerate
@@ -421,6 +421,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1935260843392893122, guid: cdce85d8e35c97d45b16b6d7b9c8590b, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1001783321}
     - target: {fileID: 1935260843392893127, guid: cdce85d8e35c97d45b16b6d7b9c8590b, type: 3}
       propertyPath: m_Name
       value: DeathScreenCanvas

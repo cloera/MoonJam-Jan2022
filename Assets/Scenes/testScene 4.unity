@@ -286,7 +286,7 @@ PrefabInstance:
       objectReference: {fileID: 4112518336021329306}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: longAttackDamage
-      value: 5
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: quickAttackDamage
@@ -298,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: longAttackPollIntervalSeconds
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: maximumNumberOfWordsToGenerate
@@ -314,7 +314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: percentageChanceOfStoryGeneration
-      value: 40
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 8796203431536084357, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: m_RootOrder
@@ -421,6 +421,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1935260843392893122, guid: cdce85d8e35c97d45b16b6d7b9c8590b, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1001783321}
     - target: {fileID: 1935260843392893127, guid: cdce85d8e35c97d45b16b6d7b9c8590b, type: 3}
       propertyPath: m_Name
       value: DeathScreenCanvas
@@ -522,6 +526,19 @@ PrefabInstance:
       propertyPath: displayOutput
       value: 
       objectReference: {fileID: 1463750237}
+    - target: {fileID: 857018710044678412, guid: 3996470320806a84d9a6adac4ab5c345, type: 3}
+      propertyPath: storyTextAsset.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 857018710044678412, guid: 3996470320806a84d9a6adac4ab5c345, type: 3}
+      propertyPath: storyTextAsset.Array.data[3]
+      value: YOU WILL NEVER DEFEAT ME!!! I am omnipotent! I am UnDesTRuctiBle!!!!
+        YoU WiLl die by MY HaND!!!!!!!!
+      objectReference: {fileID: 0}
+    - target: {fileID: 857018710044678412, guid: 3996470320806a84d9a6adac4ab5c345, type: 3}
+      propertyPath: storyTextAsset.Array.data[4]
+      value: AAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+      objectReference: {fileID: 0}
     - target: {fileID: 857018710044678413, guid: 3996470320806a84d9a6adac4ab5c345, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -721,6 +738,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1212917749063395022, guid: a783ea8ee9d43fa4099041b86b4066bd, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2084600500604759682, guid: a783ea8ee9d43fa4099041b86b4066bd, type: 3}
+      propertyPath: damageMultiplier
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4149872376886625752, guid: a783ea8ee9d43fa4099041b86b4066bd, type: 3}

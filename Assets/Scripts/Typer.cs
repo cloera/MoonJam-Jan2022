@@ -37,7 +37,9 @@ public class Typer : MonoBehaviour
             enemy = FindObjectOfType<Enemy>();
         }
 
-        if (GameState.GetGameIsPaused() || enemy.IsDying() || GameState.GetPlayerIsDead())
+        if (GameState.GetGameIsPaused() || 
+            enemy.IsDying() || 
+            GameState.GetPlayerIsDead())
         {
             return;
         }
@@ -67,6 +69,12 @@ public class Typer : MonoBehaviour
         }
 
         OutputTypedSoFar();
+    }
+
+    public void ResetPrompt()
+    {
+        charsNeeded = new List<char>(generatedPrompt);
+        typedSoFar = "";
     }
 
     public bool IsFinished()
