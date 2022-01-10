@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
 
         currentNumberOfMessups = typer.GetNumberOfMessUps();
 
-        return result;
+        return result && (currentHealth != 0);
     }
 
     public void ResetStats()

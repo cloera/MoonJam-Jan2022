@@ -37,7 +37,7 @@ public class Typer : MonoBehaviour
             enemy = FindObjectOfType<Enemy>();
         }
 
-        if (GameState.GetGameIsPaused() || enemy.IsDying())
+        if (GameState.GetGameIsPaused() || enemy.IsDying() || GameState.GetPlayerIsDead())
         {
             return;
         }

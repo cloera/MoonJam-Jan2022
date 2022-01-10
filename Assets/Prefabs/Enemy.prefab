@@ -98,8 +98,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 200
   quickAttackDamage: 1
+  quickAttackShakePower: 0.05
+  quickAttackShakeDuration: 0.1
   longAttackDamage: 25
   longAttackPollIntervalSeconds: 10
+  longAttackShakePower: 0.075
+  longAttackShakeDuration: 0.2
   minimumNumberOfWordsToGenerate: 1
   maximumNumberOfWordsToGenerate: 10
   percentageChanceOfStoryGeneration: 10
