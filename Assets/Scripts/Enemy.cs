@@ -9,8 +9,12 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Info Stuff")]
     [SerializeField] int maxHealth = 100;
     [SerializeField] int quickAttackDamage = 1;
+    [SerializeField] float quickAttackShakePower = .05f;
+    [SerializeField] float quickAttackShakeDuration = .1f;
     [SerializeField] int longAttackDamage = 25;
     [SerializeField] int longAttackPollIntervalSeconds = 10;
+    [SerializeField] float longAttackShakePower = .075f;
+    [SerializeField] float longAttackShakeDuration = .2f;
 
     [Header("Difficulty Stuff")]
     [SerializeField] int minimumNumberOfWordsToGenerate = 1;
@@ -21,30 +25,43 @@ public class Enemy : MonoBehaviour
     [SerializeField] HealthBar healthBarUI = null;
     [SerializeField] HealthBar attackBarUI = null;
 
+    [Header("FX Stuff")]
+    [SerializeField] AudioClip deathSound = null;
+    [SerializeField] AudioClip quickAttackSound = null;
+    [SerializeField] AudioClip longAttackSound = null;
+
     // Cache
     private TextGenerator textGenerator = null;
     private Player player = null;
+    private AudioSource audioSource = null;
+    private ScreenShakeController screenShakeController = null;
 
     // State
     int currentHealth;
     float secondsUntilLongAttack;
+    bool isDying = false;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
+
         healthBarUI.Initialize(maxHealth);
         attackBarUI.SetMaxHealth(longAttackPollIntervalSeconds);
         attackBarUI.UseHealthString(false);
+
         player = FindObjectOfType<Player>();
         textGenerator = FindObjectOfType<TextGenerator>();
+        audioSource = GetComponent<AudioSource>();
+        screenShakeController = FindObjectOfType<ScreenShakeController>();
+
         secondsUntilLongAttack = longAttackPollIntervalSeconds;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameState.GetGameIsPaused())
+        if (GameState.GetGameIsPaused() || isDying)
         {
             return;
         }
@@ -64,17 +81,22 @@ public class Enemy : MonoBehaviour
             GenerateNextPrompt();
         }
 
-        if (player.ShouldGetAttackedForMessUp())
+        if (player.ShouldGetAttackedForMessUp() && !isDying)
         {
             player.TakeDamage(quickAttackDamage);
+            screenShakeController.StartShaking(quickAttackShakeDuration, quickAttackShakePower);
+            audioSource.PlayOneShot(quickAttackSound);
         }
 
         if (ShouldDie())
         {
-            Die();
+            StartCoroutine(Die());
         }
 
-        HandleLongAttack();
+        if (!isDying)
+        {
+            HandleLongAttack();
+        }
 
         healthBarUI.SetHealth(currentHealth);
     }
@@ -87,6 +109,11 @@ public class Enemy : MonoBehaviour
         {
             currentHealth = 0;
         }
+    }
+
+    public bool IsDying()
+    {
+        return isDying;
     }
 
     private void GenerateNextPrompt()
@@ -105,7 +132,9 @@ public class Enemy : MonoBehaviour
 
         if (secondsUntilLongAttack <= 0f)
         {
+            audioSource.PlayOneShot(longAttackSound);
             player.TakeDamage(longAttackDamage);
+            screenShakeController.StartShaking(longAttackShakeDuration, longAttackShakePower);
             secondsUntilLongAttack = longAttackPollIntervalSeconds;
         }
     }
@@ -122,12 +151,18 @@ public class Enemy : MonoBehaviour
 
     private bool ShouldDie()
     {
-        return currentHealth <= 0;
+        return currentHealth <= 0 && !isDying;
     }
 
     // Just load next scene.
-    private void Die()
+    private IEnumerator Die()
     {
+        isDying = true;
+
+        audioSource.PlayOneShot(deathSound);
+
+        yield return new WaitWhile(() => audioSource.isPlaying);
+
         SceneManagerScript.LoadNextScene();
     }
 }
