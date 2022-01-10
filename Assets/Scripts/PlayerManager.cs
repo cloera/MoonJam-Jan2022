@@ -7,10 +7,6 @@ public class PlayerManager : MonoBehaviour
 {
     // Cache
     private Player playerGO = null;
-    private HealthBar healthBarUI = null;
-
-    // State
-    private bool isHealthBarUILoaded = false;
 
     // Instance
     private static PlayerManager _instance = null;
@@ -44,15 +40,6 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         CheckPlayerState();
-
-        if (!isHealthBarUILoaded)
-        {
-            LoadHealthBarUI();
-        }
-        else
-        {
-            healthBarUI.SetHealth(playerGO.GetCurrentHealth());
-        }
     }
 
     public void ResetPlayer()
@@ -60,7 +47,6 @@ public class PlayerManager : MonoBehaviour
         if (playerGO != null)
         {
             playerGO.ResetStats();
-            healthBarUI.SetHealth(playerGO.GetCurrentHealth());
         }
     }
 
@@ -89,21 +75,6 @@ public class PlayerManager : MonoBehaviour
             {
                 DestroyPlayerGO();
             }
-        }
-    }
-
-    private void LoadHealthBarUI()
-    {
-        if(GameState.GetHasGameStarted())
-        {
-            // Find UI health bar in scene
-            healthBarUI = GameObject.FindGameObjectWithTag("PlayerHPBarUI").GetComponent<HealthBar>();
-            // Set health bar values
-            healthBarUI.SetHealth(playerGO.GetCurrentHealth());
-            healthBarUI.SetMaxHealth(playerGO.GetMaxHealth());
-            isHealthBarUILoaded = true;
-
-            Debug.Log("Health Bar UI has loaded");
         }
     }
 }

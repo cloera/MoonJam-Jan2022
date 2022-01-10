@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     [SerializeField] float attackShakePower = .05f;
     [SerializeField] float attackShakeDuration = .1f;
 
+
+    [Header("UI Stuff")]
+    [SerializeField] HealthBar healthBarUI = null;
+
     [Header("FX Stuff")]
     [SerializeField] AudioClip attackSound = null;
 
@@ -48,7 +52,7 @@ public class Player : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        LoadEnemy();
+        LoadEnemyAndUI();
 
         textGenerator = FindObjectOfType<TextGenerator>();
         audioSource = GetComponent<AudioSource>();
@@ -57,26 +61,20 @@ public class Player : MonoBehaviour
         GameState.SetPlayerIsInitialized(true);
     }
 
-    private void OnDestroy()
-    {
-        // Reset player state
-        GameState.SetPlayerIsDead(false);
-        GameState.SetPlayerIsInitialized(false);
-        Debug.Log("Player state is reset");
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if ((enemy == null))
+        if ((healthBarUI == null) || (enemy == null))
         {
-            LoadEnemy();
+            LoadEnemyAndUI();
         }
 
         if (GameState.GetGameIsPaused() || enemy.IsDying())
         {
             return;
         }
+
+        healthBarUI.SetHealth(currentHealth);
 
         if (currentHealth <= 0 &&
             GameState.GetHasGameStarted() &&
@@ -107,26 +105,20 @@ public class Player : MonoBehaviour
         return result;
     }
 
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
-    }
-
-    public int GetMaxHealth()
-    {
-        return maxHealth;
-    }
-
     public void ResetStats()
     {
         currentHealth = maxHealth;
+        healthBarUI.SetHealth(currentHealth);
         currentNumberOfMessups = 0;
     }
 
-    public void LoadEnemy()
+    public void LoadEnemyAndUI()
     {
         enemy = FindObjectOfType<Enemy>();
-        
+        healthBarUI = GameObject.FindGameObjectWithTag("PlayerHPBarUI").GetComponent<HealthBar>();
+
+        healthBarUI.SetHealth(currentHealth);
+        healthBarUI.SetMaxHealth(maxHealth);
     }
 
     public void TakeDamage(int damage)
@@ -167,5 +159,12 @@ public class Player : MonoBehaviour
         {
             audioSource.PlayOneShot(attackSound);
         }
+    }
+
+    private IEnumerator DestroyObject()
+    {
+        yield return new WaitUntil(() => !GameState.GetHasGameStarted());
+        GameState.SetPlayerIsInitialized(false);
+        Destroy(this.gameObject);
     }
 }
