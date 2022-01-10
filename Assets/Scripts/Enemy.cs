@@ -128,6 +128,6 @@ public class Enemy : MonoBehaviour
     // Just load next scene.
     private void Die()
     {
-        SceneManagerScript.LoadNextScene();
+        SceneManagerScript.Instance.LoadNextScene();
     }
 }

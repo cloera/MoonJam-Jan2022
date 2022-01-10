@@ -31,8 +31,12 @@ public class TextGenerator : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+    }
 
-        if(markovChainTextGenerator == null)
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (markovChainTextGenerator == null)
         {
             markovSeedTextAsset = Resources.Load<TextAsset>("Text/TwitchChatText2");
             markovChainTextGenerator = new MarkovChainTextGenerator();
@@ -40,12 +44,6 @@ public class TextGenerator : MonoBehaviour
 
             StartCoroutine(InitMarkovChain(markovSeedTextAsset));
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

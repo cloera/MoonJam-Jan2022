@@ -11,9 +11,43 @@ public class SceneManagerScript : MonoBehaviour
         testScene,
     }
 
+    // Instance
+    private static SceneManagerScript _instance = null;
+    public static SceneManagerScript Instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                // Load prefab from file and instantiate it in scene
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/SceneManager");
+                GameObject goInstance = Instantiate<GameObject>(prefab);
+                // Assign prefab component to this instance
+                _instance = goInstance.GetComponent<SceneManagerScript>();
+                // Add component if it does not exist
+                if(!_instance)
+                {
+                    _instance = goInstance.AddComponent<SceneManagerScript>();
+                }
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+            return _instance;
+        }
+    }
+
     public void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //int numInstances = FindObjectsOfType<SceneManagerScript>().Length;
+
+        //if (numInstances > 1 || (_instance != this && _instance != null))
+        //{
+        //    ResetSMScript();
+        //}
+        //else
+        //{
+        //    _instance = this;
+        //    DontDestroyOnLoad(this.gameObject);
+        //}
     }
 
     public void StartGame()
@@ -28,19 +62,15 @@ public class SceneManagerScript : MonoBehaviour
         Application.Quit();
     }
 
-    public static void LoadMainMenu()
+    public void LoadMainMenu()
     {
         SceneManager.LoadScene(Scene.MainMenu.ToString());
 
-        foreach (Player player in FindObjectsOfType<Player>())
-        {
-            Destroy(player.gameObject);
-            GameState.SetPlayerIsInitialized(false);
-            GameState.SetPlayerIsDead(false);
-        }
+        // Destroy game objects
+        GameManagerScript.Instance.DestroyPlayerGO();
     }
 
-    public static void LoadNextScene()
+    public void LoadNextScene()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
@@ -56,7 +86,7 @@ public class SceneManagerScript : MonoBehaviour
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
-    public static void LoadScene(Scene scene)
+    public void LoadScene(Scene scene)
     {
         Debug.Log("Loading scene name: " + scene.ToString());
         SceneManager.LoadScene(scene.ToString());

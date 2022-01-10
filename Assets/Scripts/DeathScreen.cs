@@ -21,7 +21,7 @@ public class DeathScreen : MonoBehaviour
     public void Continue()
     {
         // Reset player stats
-        GameManagerScript.ResetPlayer();
+        GameManagerScript.Instance.ResetPlayer();
         // Reset enemy stats
 
         // Reset text prompt
@@ -40,8 +40,7 @@ public class DeathScreen : MonoBehaviour
     {
         GameState.SetHasGameStarted(false);
         DisableDeathScreen();
-        SceneManagerScript.LoadMainMenu();
-        //SceneManagerScript.LoadScene(SceneManagerScript.Scene.MainMenu);
+        SceneManagerScript.Instance.LoadMainMenu();
     }
 
     private void DisableDeathScreen()

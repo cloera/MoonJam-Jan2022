@@ -51,6 +51,14 @@ public class Player : MonoBehaviour
         GameState.SetPlayerIsInitialized(true);
     }
 
+    private void OnDestroy()
+    {
+        // Reset player state
+        GameState.SetPlayerIsDead(false);
+        GameState.SetPlayerIsInitialized(false);
+        Debug.Log("Player state is reset");
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -134,12 +142,5 @@ public class Player : MonoBehaviour
         int damageToDeal = typer.GetNumberOfCharactersTyped() * damageMultiplier;
 
         enemy.TakeDamage(damageToDeal);
-    }
-
-    private IEnumerator DestroyObject()
-    {
-        yield return new WaitUntil(() => !GameState.GetHasGameStarted());
-        GameState.SetPlayerIsInitialized(false);
-        Destroy(this.gameObject);
     }
 }
