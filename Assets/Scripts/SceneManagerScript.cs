@@ -51,11 +51,13 @@ public class SceneManagerScript : MonoBehaviour
             return;
         }
 
+        Debug.Log("Loading scene index: " + currentSceneIndex);
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
     public static void LoadScene(Scene scene)
     {
+        Debug.Log("Loading scene name: " + scene.ToString());
         SceneManager.LoadScene(scene.ToString());
     }
 }
