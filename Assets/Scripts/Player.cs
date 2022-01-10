@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] Typer typer = null;
     [SerializeField] Enemy enemy = null;
     [SerializeField] int damageMultiplier = 1;
+    [SerializeField] float attackShakePower = .05f;
+    [SerializeField] float attackShakeDuration = .1f;
 
 
     [Header("UI Stuff")]
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
     // Cache
     private TextGenerator textGenerator = null;
     private AudioSource audioSource = null;
+    private ScreenShakeController screenShakeController = null;
 
     // State
     private int currentHealth = 0;
@@ -53,6 +56,7 @@ public class Player : MonoBehaviour
 
         textGenerator = FindObjectOfType<TextGenerator>();
         audioSource = GetComponent<AudioSource>();
+        screenShakeController = FindObjectOfType<ScreenShakeController>();
 
         GameState.SetPlayerIsInitialized(true);
     }
@@ -147,6 +151,8 @@ public class Player : MonoBehaviour
         int damageToDeal = typer.GetNumberOfCharactersTyped() * damageMultiplier;
 
         enemy.TakeDamage(damageToDeal);
+
+        screenShakeController.StartShaking(attackShakeDuration, attackShakePower);
 
         // Ignore first prompt done
         if (1 <= numberOfPromptsDone)
