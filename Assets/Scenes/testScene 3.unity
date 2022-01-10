@@ -257,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579805523219091232, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: percentageChanceOfStoryGeneration
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8796203431536084357, guid: 793f72adf2482cd459d549b65760fb9a, type: 3}
       propertyPath: m_RootOrder
