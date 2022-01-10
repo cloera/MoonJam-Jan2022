@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
         enemy.TakeDamage(damageToDeal);
 
         // Ignore first prompt done
-        if (2 <= numberOfPromptsDone)
+        if (1 <= numberOfPromptsDone)
         {
             audioSource.PlayOneShot(attackSound);
         }
