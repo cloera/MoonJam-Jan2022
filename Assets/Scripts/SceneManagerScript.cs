@@ -47,25 +47,25 @@ public class SceneManagerScript : MonoBehaviour
     {
         GameState.SetHasGameStarted(false);
         SceneManager.LoadScene(Scene.MainMenu.ToString());
+
+        foreach (BackgroundMusic backgroundMusic in FindObjectsOfType<BackgroundMusic>())
+        {
+            Destroy(backgroundMusic.gameObject);
+        }
     }
 
     public void LoadNextScene()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // Last scene
-        if (currentSceneIndex == SceneManager.sceneCountInBuildSettings - 1)
-        {
-            Debug.Log("On Last Scene!");
-
-            return;
-        }
-
-        Debug.Log("Loading scene index: " + currentSceneIndex);
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
-    public void LoadScene(Scene scene)
+    public static bool IsFinalBossScene()
+    {
+        return SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 2;
+    }
+
+    public static void LoadScene(Scene scene)
     {
         Debug.Log("Loading scene name: " + scene.ToString());
         SceneManager.LoadScene(scene.ToString());

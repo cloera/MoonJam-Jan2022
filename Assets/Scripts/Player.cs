@@ -10,13 +10,21 @@ public class Player : MonoBehaviour
     [SerializeField] Typer typer = null;
     [SerializeField] Enemy enemy = null;
     [SerializeField] int damageMultiplier = 1;
+    [SerializeField] float attackShakePower = .05f;
+    [SerializeField] float attackShakeDuration = .1f;
+
+    [Header("FX Stuff")]
+    [SerializeField] AudioClip attackSound = null;
 
     // Cache
     private TextGenerator textGenerator = null;
+    private AudioSource audioSource = null;
+    private ScreenShakeController screenShakeController = null;
 
     // State
     private int currentHealth = 0;
     private int currentNumberOfMessups = 0;
+    private int numberOfPromptsDone = 0;
 
     // Awake is called when the script instance is being loaded.
     void Awake()
@@ -43,6 +51,8 @@ public class Player : MonoBehaviour
         LoadEnemy();
 
         textGenerator = FindObjectOfType<TextGenerator>();
+        audioSource = GetComponent<AudioSource>();
+        screenShakeController = FindObjectOfType<ScreenShakeController>();
 
         GameState.SetPlayerIsInitialized(true);
     }
@@ -58,14 +68,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameState.GetGameIsPaused())
-        {
-            return;
-        }
-
         if ((enemy == null))
         {
             LoadEnemy();
+        }
+
+        if (GameState.GetGameIsPaused() || enemy.IsDying())
+        {
+            return;
         }
 
         if (currentHealth <= 0 &&
@@ -78,6 +88,8 @@ public class Player : MonoBehaviour
         if (NeedsNextPrompt())
         {
             AttackEnemy();
+
+            numberOfPromptsDone += 1;
         }
     }
 
@@ -139,8 +151,21 @@ public class Player : MonoBehaviour
 
     private void AttackEnemy()
     {
+        if (enemy.IsDying())
+        {
+            return;
+        }
+
         int damageToDeal = typer.GetNumberOfCharactersTyped() * damageMultiplier;
 
         enemy.TakeDamage(damageToDeal);
+
+        screenShakeController.StartShaking(attackShakeDuration, attackShakePower);
+
+        // Ignore first prompt done
+        if (1 <= numberOfPromptsDone)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
     }
 }
