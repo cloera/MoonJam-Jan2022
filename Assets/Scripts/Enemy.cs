@@ -94,6 +94,7 @@ public class Enemy : MonoBehaviour
     public void ResetStats()
     {
         currentHealth = maxHealth;
+        secondsUntilLongAttack = longAttackPollIntervalSeconds;
         healthBarUI.SetHealth(currentHealth);
         attackBarUI.SetHealth(secondsUntilLongAttack);
     }
